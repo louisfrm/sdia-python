@@ -1,4 +1,4 @@
-from lab2.utils import get_random_number_generator
+from lab2.utils import get_random_number_generator, np
 
 
 class BoxWindow:
@@ -71,7 +71,6 @@ class BoxWindow:
         Args:
             args ([type]): [description]
         """
-
         return point in self
 
     def rand(self, n=1, rng=None):

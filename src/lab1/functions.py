@@ -24,6 +24,7 @@ def triangle_shape(height):
 
 
 def is_unique_corr(x):
+
     """Check that ``x`` has no duplicate elements.
 
     Args:
