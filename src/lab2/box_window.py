@@ -110,3 +110,73 @@ class UnitBoxWindow(BoxWindow):
         bounds = np.array([[c - 0.5, c + 0.5] for c in center])
 
         super(BoxWindow, self).init(bounds)
+
+
+class BallWindow:
+    """[summary]"""
+
+    def __init__(self, center, radius):
+        """[summary]
+
+        Args:
+            args ([type]): [description]
+        """
+
+        self.center = center
+        self.radius = radius
+
+    def __str__(self):
+        r"""BoxWindow: :math:`[a_1, b_1] \times [a_2, b_2] \times \cdots`
+
+        Returns:
+            [type]: [description]
+        """
+        string = "BallWindow: "
+        dim = self.dimension
+        string += "center: " + str(self.center) + "radius: " + str(self.radius)
+
+        return string
+
+    def __len__(self):
+        return 2 * self.radius
+
+    def __contains__(self, point):
+        assert len(point) == self.dimension()
+        dim = self.dimension()
+        d = 0
+        for i in range(dim):
+            d += (self.center[i] - point[i]) ** 2
+
+        return d <= self.radius ** 2
+
+    def dimension(self):
+        """[summary]"""
+        return len(self.center)
+
+    def volume(self):
+        """[summary]"""
+        n = self.dimension
+        R = self.radius
+        p = np.pi
+        if n % 0 == 2:
+            V = p ** (n / 2) * R ** n / np.math.factorial(n // 2)
+        else:
+            V = (
+                p ** (n // 2)
+                * 2 ** (n // 2 + 1)
+                * R ** n
+                / np.math.factorial(np.math.factorial(n))
+            )
+        return V
+
+    def indicator_function(self, point):
+        """[summary]
+
+        Args:
+            args ([type]): [description]
+        """
+
+        return point in self
+
+    def center(self):
+        return self.center
