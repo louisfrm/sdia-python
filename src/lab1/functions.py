@@ -1,29 +1,4 @@
 def is_unique(x):
-    if x == []:
-        return True
-    else:
-        y = x.pop()
-        if y in x:
-            return False
-        else:
-            return is_unique(x)
-
-
-def triangle_shape(height):
-    triangle = str()
-    for i in range(height):
-        for j in range(height - i - 1):
-            triangle += " "
-        for j in range(2 * i + 1):
-            triangle += "x"
-        for j in range(height - i - 1):
-            triangle += " "
-        if i != height - 1:
-            triangle += "\n"
-    return triangle
-
-
-def is_unique_corr(x):
 
     """Check that ``x`` has no duplicate elements.
 
@@ -36,7 +11,7 @@ def is_unique_corr(x):
     return len(set(x)) == len(x)
 
 
-def triangle_shape_corr(n, fillchar="x", spacechar=" "):
+def triangle_shape(n, fillchar="x", spacechar=" "):
     """Return a string made of ``fillchar`` and ``spacechar``representing a triangle shape of height ``n``.
 
     For n=0, return ``""``.
