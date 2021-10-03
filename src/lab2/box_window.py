@@ -1,14 +1,15 @@
 from lab2.utils import get_random_number_generator
+import numpy as np
 
 
 class BoxWindow:
-    """[summary]"""
+    """BoxWindow is a cube of N dimensions."""
 
     def __init__(self, bounds):
-        """[summary]
+        """initialization of the box
 
         Args:
-            args ([type]): [description]
+            bounds (array): array of ranges of the box in all the directions of the space.
         """
 
         self.bounds = bounds
@@ -17,7 +18,7 @@ class BoxWindow:
         r"""BoxWindow: :math:`[a_1, b_1] \times [a_2, b_2] \times \cdots`
 
         Returns:
-            [type]: [description]
+            [string]: Written representation of the box with its bounds.
         """
         string = "BoxWindow: "
         dim = self.dimension()
@@ -42,9 +43,15 @@ class BoxWindow:
         return string
 
     def __len__(self):
-        return
+        """returns the length of the longest side of the box"""
+        return np.max(np.array([b - a for [a, b] in self.bounds]))
 
     def __contains__(self, point):
+        """Returns true if a point is contained in the box.
+
+        Args:
+            point (array): Coordinates of the point
+        """
         assert len(point) == self.dimension()
         bounds = self.bounds
         dim = self.dimension()
@@ -55,21 +62,21 @@ class BoxWindow:
         return True
 
     def dimension(self):
-        """[summary]"""
+        """Returns the number of dimensions of the box"""
         return len(self.bounds)
 
     def volume(self):
-        """[summary]"""
+        """Returns the volume of the box"""
         V = 1
         for [a, b] in self.bounds:
             V *= b - a
         return V
 
     def indicator_function(self, point):
-        """[summary]
+        """Tests if a point is in the box
 
         Args:
-            args ([type]): [description]
+            point (array): Coordinates of the point
         """
 
         return point in self
@@ -88,13 +95,18 @@ class BoxWindow:
         )
         return pointArray
 
+    def center(self):
+        return np.array([(a + b) / 2 for [a, b] in self.bounds])
+
 
 class UnitBoxWindow(BoxWindow):
-    def __init__(self, center, dimension):
-        """[summary]
+    def __init__(self, center):
+        """Create a Box window with bounds of length equal to 1
 
         Args:
-            dimension ([type]): [description]
-            center ([type], optional): [description]. Defaults to None.
+            center (array): coordonnées du centre de la boîte.
         """
-        super(BoxWindow, self).__init__(args)
+
+        bounds = np.array([[c - 0.5, c + 0.5] for c in center])
+
+        super(BoxWindow, self).init(bounds)

@@ -47,3 +47,17 @@ def test_indicator_function_box_2d(box_2d_05, point, expected):
 # ================================
 # ==== WRITE YOUR TESTS BELOW ====
 # ================================
+
+
+@pytest.mark.parametrize(
+    "bounds, expected",
+    [
+        (np.array([[0, 4], [0, 6]]), np.array([2, 3])),
+        (np.array([[0, 3], [0, 6]]), np.array([1.5, 3])),
+        (np.array([[-1, 4], [3.5, 3.6], [5, 9]]), np.array([1.5, 3.55, 7])),
+    ],
+)
+def test_centerbox(bounds, expected):
+    box = BoxWindow(bounds)
+    center = box.center()
+    assert np.array_equal(center, expected)
